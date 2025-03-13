@@ -56,10 +56,10 @@ const Footer = () => {
 
                     <ul class="list-unstyled">
                     <li class="mb-4">
-                        <a href="" class="text-white">Quem Somos</a>
+                        <a href="" class="text-white">Trabalhe conosco</a>
                     </li>
                     <li class="mb-4">
-                        <a href="#!" class="text-white">Trabalhe Conosco</a>
+                        <a href="#!" class="text-white">Suporte</a>
                     </li>
                     
                  
