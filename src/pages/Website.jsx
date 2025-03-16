@@ -2,7 +2,7 @@ import React, { useEffect, useState} from "react"
 import axios from "axios"
 import Header from "../componetes/Header"
 import Footer from "../componetes/Footer"
-
+import { Link } from "react-router-dom"
 
 
 const Website = () =>{
@@ -13,17 +13,32 @@ const Website = () =>{
 
     //é executado com um efeito colateral, ou seja, a resposta de alguma coisa
     //neste caso, ele será executado sempre que página for carregada 
-    useEffect(() => {
-       axios.get("http://localhost:8000/api/usuarios") 
-            .then((resposta) => setUsuarios(resposta.data))
-            .catch((error) => console.error("ERROR", error))
-    }, [])
-    useEffect(() => {
-       axios.get("http://localhost:8000/api/categorias") 
-            .then((resposta) => setCategorias(resposta.data))
-            .catch((error) => console.error("ERROR", error))
-    }, [])
+   
+    // const token = localStorage.getItem("token");
+    const token = "247fc3f23a4187f3a070dc46c067928e3d1614adfed2691e2d482dfc3d5d4575542343452ca44f3e";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const authHeader = {
+    headers: {
+      // Authorization: `Basic ${btoa('admin@example.com:password')}`,
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
     
+
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/usuarios`, authHeader) 
+             .then((resposta) => setUsuarios(resposta.data))
+             .catch((error) => console.error("ERROR", error))
+     }, [authHeader])
+
+     useEffect(() => {
+        axios.get(`http://localhost:8000/api/categorias`, authHeader) 
+        .then((resposta) => setCategorias(resposta.data))
+        .catch((error) => console.error("ERROR", error))
+    }, [authHeader])
+
+     
     return (
     <>
             
@@ -107,7 +122,7 @@ const Website = () =>{
                                     <p className='text-secondary mb-1 text-dark '>{objUsuarios.idInstrumento} | </p>
                                     
                                     <p className=' text-secondary mb-5'>{objUsuarios.cidade} | {objUsuarios.preco}</p>
-                                    <a href="" id="btnCard" className="my-4">Perfil</a>
+                                    <Link  to={`/perfil/${objUsuarios.idUsuario}`} id="btnCard">Perfil</Link>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,17 @@
+import { Link } from "react-router-dom";
+import React, { useEffect, useState} from "react"
+import axios from "axios";
 
 
 const Header = () => {
+  const [usuarios, setUsuarios] = useState([])
+  
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/usuarios`)
+         .then((resposta) => setUsuarios(resposta.data))
+         .catch((error) => console.error("ERROR", error))
+ }, [])
+
   return (
  
   <nav class="navbar navbar-expand-lg  justify-content-center sectionRadius container my-3 mb-4 shadow" >
@@ -53,7 +64,7 @@ const Header = () => {
                 <a class="nav-link   " aria-current="page" href="/contato">Contato</a>
               </li>
               <li class="bborder nav-item rounded-5 p-3 ">
-                <a class="nav-link " href="/perfil">Perfil</a>
+                <Link class="nav-link " to={`/perfil/${usuarios.idUsuario}`}>Perfil</Link>
               </li>
               <li class="nav-item dropdown me-5">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

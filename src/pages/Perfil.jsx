@@ -6,12 +6,21 @@ import Footer from "../componetes/Footer";
 const Perfil = () => {
     const [usuarios, setUsuarios] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get("http://localhost:8000/api/usuarios")
-            .then((resposta) => setUsuarios(resposta.data))
-            .catch((error) => console.error("ERROR", error));
-    }, []);
+    // const token = localStorage.getItem("token");
+    const token = "247fc3f23a4187f3a070dc46c067928e3d1614adfed2691e2d482dfc3d5d4575542343452ca44f3e";
+    const authHeader = {
+      headers: {
+        // Authorization: `Basic ${btoa('admin@example.com:password')}`,
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+  
+      useEffect(() => {
+          axios.get(`http://localhost:8000/api/usuarios`, authHeader) 
+               .then((resposta) => setUsuarios(resposta.data))
+               .catch((error) => console.error("ERROR", error))
+       }, [])
 
     return (
     <>

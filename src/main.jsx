@@ -17,11 +17,12 @@ import Contato from './pages/Contato.jsx'
 
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
         <Routes>
-          <Route path="/perfil" element={<Perfil/>}/>
+          <Route path="/perfil/:idUsuario" element={<Perfil/>}/>
           <Route path="/" element={<Website/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/cadastro" element={<Cadastro/>}/>
